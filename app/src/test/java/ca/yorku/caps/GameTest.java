@@ -12,16 +12,12 @@ public class GameTest
     @Test
     public void qaTest() {
         Game game = new Game();
-        System.out.println(game.qa());
+        String qa = game.qa();
+        System.out.println(qa);
+        String a = qa.split("\n")[1];
+        System.out.println(a);
+
     }
     CountryDB db = new CountryDB();
-    @Test
-    public void mics() {
 
-        List<String> capitalList = db.getCapitals();
-        int n = capitalList.size();
-        int index = (int) (Math.random()*n);
-        System.out.println(n);
-        System.out.println(index);
-    }
 }
