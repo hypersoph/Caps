@@ -5,9 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 public class CapsActivity extends AppCompatActivity
 {
@@ -41,7 +44,7 @@ public class CapsActivity extends AppCompatActivity
 
 
     public void onDone(View v) {
-        if (qNum >= 10) {
+        if (qNum == 10) {
             finish();
         }
         String userAnswer = ((EditText) findViewById(R.id.answer)).getText().toString().toUpperCase();
@@ -52,13 +55,16 @@ public class CapsActivity extends AppCompatActivity
         }
         Log.d("score",String.format("SCORE = %d",score));
         String log = String.format("Q# %d: %s\nYour answer: %s\nCorrect answer: %s\n\n", qNum, question, userAnswer, answer);
-        ((TextView) findViewById(R.id.log)).append(log);
+        TextView tLog = ((TextView) findViewById(R.id.log));
+        tLog.setText(log + tLog.getText());
+        ((TextView) findViewById(R.id.score)).setText(String.format("SCORE = %d",score));
         qNum++;
+
         if (qNum>=10) {
             ((TextView) findViewById(R.id.qNum)).setText("Game Over!");
+            ((Button) findViewById(R.id.done)).setEnabled(false);
         }
         else {
-            ((TextView) findViewById(R.id.score)).setText(String.format("SCORE = %d",score));
             ((TextView) findViewById(R.id.qNum)).setText(String.format("Q# %d",qNum));
             ((EditText) findViewById(R.id.answer)).setText("");
             ask();
