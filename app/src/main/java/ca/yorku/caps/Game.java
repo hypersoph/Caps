@@ -25,15 +25,15 @@ public class Game
         Map<String, Country> data = db.getData();
         Country ref = data.get(c);
 
-        String question = "";
+        String qa = "";
         if (Math.random() < 0.5) {
-            question = String.format("What is the capital of %s?",ref.getName());
+            qa = String.format("What is the capital of %s?\n%s",ref.getName(), ref.getCapital());
         }
         else {
-            question = String.format("%s is the capital of?",ref.getCapital());
+            qa = String.format("%s is the capital of?\n%s",ref.getCapital(), ref.getName());
         }
 
-        return question;
+        return qa;
     }
 {
 
