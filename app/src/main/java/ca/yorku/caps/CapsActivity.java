@@ -1,3 +1,5 @@
+//Student Name: Sophia Nguyen
+//This project was done individually
 package ca.yorku.caps;
 
 import androidx.appcompat.app.AppCompatActivity;
