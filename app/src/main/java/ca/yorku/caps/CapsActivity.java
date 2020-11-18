@@ -3,9 +3,11 @@ package ca.yorku.caps;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class CapsActivity extends AppCompatActivity
 {
@@ -24,7 +26,6 @@ public class CapsActivity extends AppCompatActivity
         game = new Game();
         score = 0;
         qNum = 1;
-
         ask();
 
     }
@@ -34,6 +35,8 @@ public class CapsActivity extends AppCompatActivity
         question = qa.split("\n")[0];
         answer = qa.split("\n")[1];
         ((TextView) findViewById(R.id.question)).setText(question);
+        Log.d("question", question);
+        Log.d("answer", answer);
     }
 
 
@@ -41,19 +44,25 @@ public class CapsActivity extends AppCompatActivity
         if (qNum >= 10) {
             finish();
         }
-        String userAnswer = ((EditText) findViewById(R.id.answer)).getText().toString();
-        if (userAnswer.toLowerCase() == answer.toLowerCase()) {
+        String userAnswer = ((EditText) findViewById(R.id.answer)).getText().toString().toUpperCase();
+
+        /* IMPORTANT: do not use == to compare strings */
+        if (userAnswer.equals(answer.toUpperCase())) {
             score++;
         }
-        String log;
+        Log.d("score",String.format("SCORE = %d",score));
+        String log = String.format("Q# %d: %s\nYour answer: %s\nCorrect answer: %s\n\n", qNum, question, userAnswer, answer);
+        ((TextView) findViewById(R.id.log)).append(log);
         qNum++;
         if (qNum>=10) {
-
+            ((TextView) findViewById(R.id.qNum)).setText("Game Over!");
         }
         else {
-            ((TextView) findViewById(R.id.score)).setText(Integer.toString(score));
-            ((TextView) findViewById(R.id.qNum)).setText(Integer.toString(qNum));
+            ((TextView) findViewById(R.id.score)).setText(String.format("SCORE = %d",score));
+            ((TextView) findViewById(R.id.qNum)).setText(String.format("Q# %d",qNum));
+            ((EditText) findViewById(R.id.answer)).setText("");
+            ask();
         }
-        ask();
+
     }
 }
